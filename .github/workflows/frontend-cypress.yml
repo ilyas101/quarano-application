@@ -12,28 +12,38 @@ defaults:
     working-directory: frontend
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-16.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      #      - run: npm install
-      - name: Cypress install
-        uses: cypress-io/github-action@v2
-        with:
-          runTests: false
-          working-directory: frontend
-      - name: Start server in the background
-        run: npm start &
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          working-directory: frontend/apps/quarano-frontend-e2e
-          install: false
-          wait-on: "http://localhost:4200"
-          browser: chrome
-          headless: true
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run build-stage
+    - run: npm run e2e
+#  cypress-run:
+#    runs-on: ubuntu-16.04
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      #      - run: npm install
+#      - name: Cypress install
+#        uses: cypress-io/github-action@v2
+#        with:
+#          runTests: false
+#          working-directory: frontend
+#      - name: Start server in the background
+#        run: npm start &
+#      - name: Cypress run
+#        uses: cypress-io/github-action@v2
+#        with:
+#          working-directory: frontend/apps/quarano-frontend-e2e
+#          install: false
+#          wait-on: "http://localhost:4200"
+#          browser: chrome
+#          headless: true
