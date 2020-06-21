@@ -16,12 +16,20 @@ jobs:
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          start: npm run e2e
+          wait-on: "http://localhost:4200"
           browser: chrome
           headless: true
           working-directory: frontend
