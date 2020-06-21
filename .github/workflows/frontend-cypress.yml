@@ -32,7 +32,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          working-directory: frontend/quarano-frontend-e2e
+          working-directory: frontend/apps/quarano-frontend-e2e
           install: false
           wait-on: "http://localhost:4200"
           browser: chrome
