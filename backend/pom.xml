@@ -22,6 +22,7 @@
 		<jddd.version>0.1.0</jddd.version>
 		<moduliths.version>1.0.0.RC4</moduliths.version>
 		<spring-hateoas.version>1.2.0-SNAPSHOT</spring-hateoas.version>
+		<greenmail.version>1.6.0-SNAPSHOT</greenmail.version>
 	</properties>
 
 	<profiles>
@@ -153,9 +154,14 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+		
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
 		<dependency>
-		<groupId>org.jddd</groupId>
+	       	<groupId>org.jddd</groupId>
 			<artifactId>jddd-core</artifactId>
 			<version>${jddd.version}</version>
 		</dependency>
@@ -202,6 +208,31 @@
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+	      <groupId>com.icegreen</groupId>
+	      <artifactId>greenmail</artifactId>
+	      <version>${greenmail.version}</version>
+	      <exclusions>
+	        <exclusion>
+	          <groupId>junit</groupId>
+	          <artifactId>junit</artifactId>
+	        </exclusion>
+	        <exclusion>
+	          <groupId>javax.activation</groupId>
+	          <artifactId>activation</artifactId>
+	        </exclusion>
+	        <exclusion>
+	          <groupId>com.sun.mail</groupId>
+	          <artifactId>javax.mail</artifactId>
+	        </exclusion>
+	      </exclusions>
+	    </dependency>
+        <dependency>
+	      <groupId>com.icegreen</groupId>
+	      <artifactId>greenmail-junit5</artifactId>
+	      <version>${greenmail.version}</version>
+	      <scope>test</scope>
+	    </dependency>
 
 		<!-- Development-only dependencies -->
 
@@ -219,7 +250,6 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -370,6 +400,11 @@
 		<repository>
 			<id>spring-libs-snapshot</id>
 			<url>https://repo.spring.io/libs-snapshot</url>
+		</repository>
+		<!-- For Moduliths & jDDD -->
+		<repository>
+			<id>greenmail-snapshot</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 	</repositories>
 
